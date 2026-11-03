@@ -1,0 +1,30 @@
+hostname ZL-HQ2
+!
+interface Loopback0
+ ip address 10.255.255.2 255.255.255.255
+!
+interface GigabitEthernet0/0
+ ip address 10.0.0.2 255.255.255.0
+ ip ospf priority 50
+ ip ospf message-digest-key 1 md5 ZagrosOSPF26
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 10.10.0.1 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf hello-interval 5
+ ip ospf dead-interval 20
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 ZagrosOSPF26
+ no shutdown
+!
+router ospf 10
+ router-id 10.255.255.2
+ auto-cost reference-bandwidth 10000
+ area 0 authentication message-digest
+ network 10.0.0.0 0.0.0.255 area 0
+ network 10.255.255.2 0.0.0.0 area 0
+ network 10.10.0.0 0.0.0.3 area 10
+!
+end
+write memory
