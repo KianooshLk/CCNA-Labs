@@ -1,0 +1,7 @@
+hostname SW-CORE
+!
+! Default config only: all ports stay in VLAN 1.
+! Gi0/0 -> ZL-HQ1, Gi0/1 -> ZL-HQ2, Gi0/2 -> ZL-HQ3
+!
+end
+write memory
